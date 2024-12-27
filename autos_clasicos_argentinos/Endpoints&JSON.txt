@@ -1,0 +1,98 @@
+Para utilizar el microservicio se debe primero correr la Api eureka_sv, luego AutosClasicosArgentinos y por ultimo propietariosClasicos.
+La base de datos a utilizar en MySql son:
+
+Para AutosClasicosArgentinos -> autos_clasicos_argentinos   (server.port = 9001)
+Para propietariosClasicos -> propietarios_clasicos          (server.port = 9002)
+
+Crear auto clasico:
+endpoint -> POST localhost:9001/autos/crear
+JSON ejemplo:
+{
+   "marca": "Renault",
+    "modelo": "Fuego GTX",
+    "anio": 1986,
+    "motor": "NA",
+    "cilindrada": 1995,
+    "cv": 110,
+    "cant_puertas": "3",
+    "frenos_delanteros": "Discos ventilados",
+    "frenos_traseros": "Discos",
+    "suspension_delantera": "McPherson",
+    "suspension_trasera": "Independiente",
+    "sistema_electrico": "12V",
+    "caja_cambios": "Manual 5 velocidades",
+    "rodado": "14 pulgadas",
+    "descripcion_breve": "Coupé deportiva con diseño aerodinámico y estilo único."
+}
+
+Traer lista de autos clasicos:
+endpoint -> GET localhost:9001/autos/traer
+
+Traer un auto clasico por ID:
+endpoint -> GET	localhost:9001/autos/traer/{id_auto}
+
+Borrado definitivo de auto clasico
+endpoint -> DELETE localhost:9001/autos/borrar/{id_auto}
+
+Edicion de auto clasico:
+endpoint -> PUT localhost:9001/autos/editar
+JSON ejemplo para el RequestBody:
+{
+    "id_auto":1 
+    "marca": "Renault",
+    "modelo": "Fuego GTX",
+    "anio": 1986,
+    "motor": "NA",
+    "cilindrada": 1995,
+    "cv": 110,
+    "cant_puertas": "3",
+    "frenos_delanteros": "Discos ventilados",
+    "frenos_traseros": "Discos",
+    "suspension_delantera": "McPherson",
+    "suspension_trasera": "Independiente",
+    "sistema_electrico": "12V",
+    "caja_cambios": "Manual 5 velocidades",
+    "rodado": "14 pulgadas",
+    "descripcion_breve": "Coupé deportiva con diseño aerodinámico y estilo único."
+}
+
+Importante: (para crear un propietario se recomienda crear primero un auto clasico para poder relacionarlo)
+
+Crear propietario:
+endpoint -> POST localhost:9002/propietarios/crear
+JSON ejemplo:
+{
+    "nombre":"-------",
+    "apellido":"--------",
+    "dni":"00000000",
+    "direccion":"-----------",
+    "listaIdAutosClasicos":[
+        "1"
+    ]
+}
+
+Traer paginado de propietarios con sus respectivos autos clasicos:
+endpoint -> GET localhost:9002/propietarios/traer?page=0&size=1
+
+Traer propietario por ID:
+endpoint -> GET localhost:9002/propietarios/traer/{id_propietario}
+
+Borrado logico de propietario:
+endpoint -> DELETE localhost:9002/propietarios/borrarlogico/{id_propietario}
+
+Borrado definitivo de propietario:
+endpoint -> DELETE localhost:9002/propietarios/borrar/{id_propietario}
+
+Editar propietario:
+endpoint -> PUT localhost:9002/propietarios/editar
+JSON ejemplo para el RequestBody:
+{
+    "id":1
+    "nombre":"---------",
+    "apellido":"----------",
+    "dni":"00000000",
+    "direccion":"----------",
+    "listaIdAutosClasicos":[
+        "1","2"
+    ]
+}
